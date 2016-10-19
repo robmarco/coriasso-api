@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  min_messages: warning
+  pool: <%= ENV.fetch("MAX_THREADS") { 5 } %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: coriasso_development
+
+test:
+  <<: *default
+  database: coriasso_test
+
+production:
+  <<: *default
+  encoding: utf8
+  database: coriasso_production
+  # RDS configuration
+  # username: coriasso_production
+  # password: <%= ENV['DATABASE_PASS'] %>
+  # url: <%= ENV['DATABASE_URL'] %>
+  # Local PSQL configuration
+  database: coriasso_production
+  username: deployer
+  password: deployer
