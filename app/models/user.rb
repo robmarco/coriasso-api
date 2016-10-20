@@ -2,61 +2,46 @@
 #
 # Table name: users
 #
-#  id                 :integer          not null, primary key
-#  name               :string
-#  username           :string
-#  email              :string
-#  salt               :string
-#  encrypted_password :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
+#  id                     :integer          not null, primary key
+#  email                  :string           not null
+#  salt                   :string
+#  encrypted_password     :string           not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  last_sign_in_at        :datetime
+#  name                   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
 class User < ApplicationRecord
-  # Callbacks
-	before_save 	:encrypt_password
-	after_save 		:clear_password
+	# Includes
+	include Authenticable
 
-  # Attributes
-	attr_accessor :password
+	# Scopes
+  scope :not_me, -> (me) { where('id != ?', me.id) }
 
 	# Associations
+	has_many :user_tokens, dependent: :destroy
 	has_many :ratings, dependent: :destroy
 
   # Validations
   validates :email, :name, presence: true
-  validates :username, presence: true
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6 }, on: :create
-  validates_format_of :username, with: /\A[a-zA-Z]+([0-9]*[\_\.]*[a-zA-Z]*[0-9]*)*\z/
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create
-  validates_uniqueness_of :username, :email, case_sensitive: false
+  validates_uniqueness_of :email, case_sensitive: false
 
-  def self.by_email(email)
-		self.find_by(email: email)
+	# Public methods
+	def generate_token(push_token, device)
+		self.user_tokens.create! push_token: push_token, device: device
 	end
-
-  def self.authenticate(email="", login_password="")
-		user = self.by_email(email)
-		return user if user && user.match_password(login_password)
-    false
-	end
-
-  def match_password(login_password="")
-		encrypted_password == BCrypt::Engine.hash_secret(login_password, salt)
-	end
-
-  private
-
-  def encrypt_password
-    if password.present?
-      self.salt = BCrypt::Engine.generate_salt
-      self.encrypted_password = BCrypt::Engine.hash_secret(password, salt)
-    end
-  end
-
-  def clear_password
-    self.password = nil
-  end
 
 end

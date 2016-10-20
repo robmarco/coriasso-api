@@ -1,11 +1,16 @@
 class Api::UsersController < Api::BaseController
-  before_action :set_user, only: [:index]
+  before_action :authenticate_user!, only: [:me]
+  before_action :set_user, only: [:show]
 
   def index
-    @users = User.all
+    @users = User.all.page(params[:page])
   end
 
   def show
+  end
+
+  def me
+    @user = @current_user
   end
 
   private
