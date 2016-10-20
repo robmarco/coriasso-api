@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   # API
   # =============================================
-  constraints subdomain: 'api' do
+  # constraints subdomain: 'api' do
     namespace :api, path: '', as: '', defaults: { format: 'json' } do
       # About categories and styles
       resources :categories, only: [:index, :show] do
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
+  # end
 
   match "*path", to: "routing#index", via: :all
   root to: 'uptime#index'
