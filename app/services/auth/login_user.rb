@@ -24,7 +24,7 @@ class Auth::LoginUser
   end
 
   def call
-    return Error.new(errors: self.errors) if !self.valid?
+    return Error.new(errors: self.errors.full_messages) if !self.valid?
 
     @user = User.authenticate(@email, @password)
 

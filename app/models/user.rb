@@ -32,6 +32,9 @@ class User < ApplicationRecord
 	has_many :user_tokens, dependent: :destroy
 	has_many :ratings, dependent: :destroy
 
+	has_many :favorite_beers, dependent: :destroy
+	has_many :beers, through: :favorite_beers
+
   # Validations
   validates :email, :name, presence: true
   validates :password, presence: true, on: :create
@@ -42,6 +45,21 @@ class User < ApplicationRecord
 	# Public methods
 	def generate_token(push_token, device)
 		self.user_tokens.create! push_token: push_token, device: device
+	end
+
+	def rate_beer(beer, rate)
+		rating = self.ratings.new(beer: beer, rate: rate)
+		rating.save
+	end
+
+	def like_beer(beer)
+		favorite_beer = self.favorite_beers.new(beer: beer)
+		favorite_beer.save
+	end
+
+	def dislike_beer(beer)
+		favorite_beer = self.favorite_beers.find_by(id: beer.id)
+		favorite_beer ? favorite_beer.destroy : false
 	end
 
 end

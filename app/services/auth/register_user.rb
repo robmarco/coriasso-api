@@ -21,8 +21,8 @@ class Auth::RegisterUser
   end
 
   def call
-    return Error.new(errors: @user.errors)  if !@user.valid?
-    return Error.new(errors: self.errors)   if !self.valid?
+    return Error.new(errors: @user.errors.full_messages)  if !@user.valid?
+    return Error.new(errors: self.errors.full_messages)   if !self.valid?
 
     if @user.save
       generate_authentication_token(@push_token, @device)
