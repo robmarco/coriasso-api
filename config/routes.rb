@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # API
   # =============================================
   # constraints subdomain: 'api' do
-    namespace :api, path: '', as: '', defaults: { format: 'json' } do
+    namespace :api, path: 'api', as: '', defaults: { format: 'json' } do
       # About categories and styles
       resources :categories, only: [:index, :show] do
         member do
