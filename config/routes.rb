@@ -30,6 +30,9 @@ Rails.application.routes.draw do
 
       # About users
       resources :users, only: [:index, :show] do
+        member do
+          get :beers
+        end
         collection do
           get :me
         end
