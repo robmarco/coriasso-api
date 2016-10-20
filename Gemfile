@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry'
   gem 'bullet'
+  gem 'hirb'
 end
 
 group :development do
