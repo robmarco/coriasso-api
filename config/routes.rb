@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   # =============================================
   # constraints subdomain: 'api' do
     namespace :api, path: 'api', as: '', defaults: { format: 'json' } do
+      # Authentication
+      post 'login',    to: 'sessions#login'
+      post 'register', to: 'sessions#register'
+      post 'logout',   to: 'sessions#logout'
+
       # About categories and styles
       resources :categories, only: [:index, :show] do
         member do
