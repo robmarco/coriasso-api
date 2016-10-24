@@ -12,6 +12,7 @@ class DataExample
   end
 
   def call
+    create_api_key
     create_styles
     create_beers
     create_variants
@@ -21,6 +22,11 @@ class DataExample
   end
 
   private
+
+    def create_api_key
+      ApiKey.create! label: "iOS Api key", token: "8d35146cef1435a4d27c05048f3aeccf"
+      ApiKey.create! label: "web Api key"
+    end
 
     def create_styles
       beer_styles = [
@@ -62,7 +68,7 @@ class DataExample
       ]
 
       beer_list.each do |b|
-        created_beer = Beer.create! name: b[:name], origin: b[:origin], abv: b[:abv], description: b[:description], style: b[:style]
+        created_beer = Beer.create! name: b[:name], origin: b[:origin], abv: b[:abv], description: b[:description], style: b[:style], image_url: "http://cdn.mobilesyrup.com/wp-content/uploads/2016/06/beer.jpg"
         @beers << created_beer
       end
     end
@@ -76,12 +82,12 @@ class DataExample
     end
 
     def create_categories
-      wild_west = Category.create! name: "Wild West America", description: ""
+      wild_west = Category.create! name: "Wild West America", description: "", image_url: "http://usa.sae.edu/assets/Campuses/New-York/2015/New_York_City_view.jpg"
       ids = [0, 1, 3, 4, 5, 11, 12, 14, 15, 16, 17, 18, 19]
       ids.each do |i|
         wild_west.beers << @beers[i]
       end
-      european = Category.create! name: "Loving Europe", description: ""
+      european = Category.create! name: "Loving Europe", description: "", image_url: "http://newsakin.com/wp-content/uploads/2016/06/15.jpg"
       ids = [2, 6, 7, 8, 9, 10, 13]
       ids.each do |i|
         european.beers << @beers[i]
@@ -89,6 +95,9 @@ class DataExample
     end
 
     def create_users
+      picture = "http://cdn1.matadornetwork.com/blogs/1/2012/02/pissed-off-danish-man.jpg"
+      user = User.create! email: "test@test.com", password: "test123", name: "Ian Curtis", image_url: picture
+      @users << user
     end
 
     def create_ratings

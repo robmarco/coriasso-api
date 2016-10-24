@@ -33,11 +33,11 @@ module ExceptionRescuable
 			request.format = :json
 		end
 
-		def record_not_found
+		def route_not_found
 			render json: { errors: 'Route not found. Check our documentation and try it again.' }, status: :not_found
 		end
 
-		def route_not_found
+		def record_not_found
 			render json: { errors: 'Resource not found. You are trying to get access to an invalid resource or a resource that doesnt belong to you.' }, status: :not_found
 		end
 

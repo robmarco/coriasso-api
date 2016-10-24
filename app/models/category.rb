@@ -35,6 +35,7 @@ class Category < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :image, presence: true, on: :create
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   # Public methods
   def image_url=(url)

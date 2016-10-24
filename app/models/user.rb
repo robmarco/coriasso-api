@@ -50,7 +50,8 @@ class User < ApplicationRecord
 
   # Validations
   validates :email, :name, presence: true
-  validates :password, :image, presence: true, on: :create
+  validates :password, presence: true, on: :create
+	validates :image, presence: true, on: :create
   validates :password, length: { minimum: 6 }, on: :create
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create
   validates_uniqueness_of :email, case_sensitive: false

@@ -3,7 +3,7 @@ class Api::BeersController < Api::BaseController
   before_action :set_beer, only: [:show, :rate, :like, :dislike]
 
   def index
-    @beers = Beer.all.page(params[:page])
+    @beers = Beer.includes(:style).all.page(params[:page])
   end
 
   def show
@@ -37,7 +37,7 @@ class Api::BeersController < Api::BaseController
   private
 
     def set_beer
-      @beer = Beer.find(params[:id])
+      @beer = Beer.includes(:style, :variants).find(params[:id])
     end
 
     def rate_params

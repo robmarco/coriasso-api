@@ -9,7 +9,7 @@ class Api::CategoriesController < Api::BaseController
   end
 
   def beers
-    @beers = @category.beers.page(params[:page])
+    @beers = @category.beers.includes(:style).page(params[:page])
   end
 
   private

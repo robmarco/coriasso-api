@@ -39,6 +39,7 @@ class Beer < ApplicationRecord
   validates :name, :origin, :abv, :description, presence: true
   validates :style, presence: true
   validates :image, presence: true, on: :create
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
   # Public methods
   def image_url=(url)
