@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024134836) do
+ActiveRecord::Schema.define(version: 20161024135856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,14 @@ ActiveRecord::Schema.define(version: 20161024134836) do
     t.string   "origin"
     t.float    "abv"
     t.text     "description"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "style_id"
-    t.integer  "like_count",  default: 0
+    t.integer  "like_count",         default: 0
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "beers_categories", id: false, force: :cascade do |t|
