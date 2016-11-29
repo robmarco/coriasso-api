@@ -24,5 +24,5 @@ production:
   # url: <%= ENV['DATABASE_URL'] %>
   # Local PSQL configuration
   database: coriasso_production
-  username: deployer
-  password: deployer
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
