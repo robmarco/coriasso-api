@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024141328) do
+ActiveRecord::Schema.define(version: 20161130121837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,14 +28,18 @@ ActiveRecord::Schema.define(version: 20161024141328) do
     t.string   "origin"
     t.float    "abv"
     t.text     "description"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "style_id"
     t.integer  "like_count",         default: 0
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean  "featured",           default: false
+    t.boolean  "this_week",          default: false
+    t.index ["featured"], name: "index_beers_on_featured", using: :btree
+    t.index ["this_week"], name: "index_beers_on_this_week", using: :btree
   end
 
   create_table "beers_categories", id: false, force: :cascade do |t|

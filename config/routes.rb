@@ -25,9 +25,12 @@ Rails.application.routes.draw do
 
       # About beers
       resources :beers, only: [:index, :show] do
+        collection do
+          get :featured
+          get :this_week
+        end
         member do
           post :rate
-          post :unrate
           post :like
           post :dislike
         end

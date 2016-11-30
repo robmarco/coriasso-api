@@ -3,7 +3,15 @@ class Api::BeersController < Api::BaseController
   before_action :set_beer, only: [:show, :rate, :like, :dislike]
 
   def index
-    @beers = Beer.includes(:style).all.page(params[:page])
+    @beers = BeersFinder.query.page(params[:page])
+  end
+
+  def this_week
+    @beers = BeersFinder.query(this_week: true).page(params[:page])
+  end
+
+  def featured
+    @beers = BeersFinder.query(featured: true).page(params[:page])
   end
 
   def show

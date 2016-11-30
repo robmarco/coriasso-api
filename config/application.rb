@@ -27,7 +27,7 @@ module CoriassoApi
     config.time_zone = 'Madrid'
 
     # Adding Lib folder
-    config.autoload_paths += %W{#{config.root}/feed #{config.root}/models/concerns lib}
+    config.autoload_paths += %W{#{config.root}/feed #{config.root}/finders #{config.root}/models/concerns lib}
 
     # Locale
     # config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]

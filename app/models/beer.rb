@@ -15,11 +15,22 @@
 #  image_content_type :string
 #  image_file_size    :integer
 #  image_updated_at   :datetime
+#  featured           :boolean          default(FALSE)
+#  this_week          :boolean          default(FALSE)
+#
+# Indexes
+#
+#  index_beers_on_featured   (featured)
+#  index_beers_on_this_week  (this_week)
 #
 
 class Beer < ApplicationRecord
   # Attributes
   attr_accessor :image_url
+
+  # Scopes
+  scope :featured,  -> { where(featured: true) }
+  scope :this_week, -> { where(this_week: true) }
 
   # Associations
   belongs_to :style
