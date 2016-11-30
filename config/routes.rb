@@ -39,7 +39,8 @@ Rails.application.routes.draw do
       # About users
       resources :users, only: [:index, :show] do
         member do
-          get :beers
+          get :ratings
+          get :favorited
         end
         collection do
           get :me

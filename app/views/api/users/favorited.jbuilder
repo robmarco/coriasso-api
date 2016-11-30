@@ -7,7 +7,7 @@ json.data do
     json.partial! 'api/shared/user', user: @user
   end
 
-  json.beers do
+  json.favorited do
     json.array!(@beers) do |beer|
       json.partial! 'api/shared/beer', beer: beer
     end

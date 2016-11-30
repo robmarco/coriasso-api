@@ -1,6 +1,6 @@
 class Api::UsersController < Api::BaseController
   before_action :authenticate_user!, only: [:me]
-  before_action :set_user, only: [:show, :beers]
+  before_action :set_user, only: [:show, :ratings, :favorited]
 
   def index
     @users = User.all.page(params[:page])
@@ -13,7 +13,13 @@ class Api::UsersController < Api::BaseController
     @user = @current_user
   end
 
-  def beers
+  def ratings
+    @ratings = @user.ratings
+                    .includes(:beers)
+                    .page(params[:page])
+  end
+
+  def favorited
     @beers = @user.beers.page(params[:page])
   end
 
