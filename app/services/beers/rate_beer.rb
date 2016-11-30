@@ -21,7 +21,7 @@ class Beers::RateBeer
 
     ActiveRecord::Base.transaction do
       rate_beer||rollback
-      # update_beer_global_rating||rollback
+      # TODO: update_beer_global_rating||rollback
       return Success.new
     end
 

@@ -27,7 +27,7 @@ class Api::BeersController < Api::BaseController
   end
 
   def like
-    if like_beer(@beer)
+    if @current_user.like_beer(@beer)
       head :no_content
     else
       render json: { errors: "Error trying to add this beer to your favorites" }, status: :unprocessable_entity
@@ -35,7 +35,7 @@ class Api::BeersController < Api::BaseController
   end
 
   def dislike
-    if dislike_beer(@beer)
+    if @current_user.dislike_beer(@beer)
       head :no_content
     else
       render json: { errors: "Error trying to remove this beer from your favorites" }, status: :unprocessable_entity
